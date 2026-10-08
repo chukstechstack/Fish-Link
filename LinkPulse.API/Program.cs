@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // 2. Register our raw MySQL service for dependency injection
 builder.Services.AddScoped<GetAllLinksService>();
 builder.Services.AddScoped<GetLinkByIdService>();
+builder.Services.AddScoped<CreateLinkService>();
 // 3. Register controllers so your API can handle web routes
 builder.Services.AddControllers();
 
