@@ -1,0 +1,12 @@
+## .NET Core / Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.userosscache
+*.suo
+.user
+project.lock.json
+project.lock.asspec
+*.ide
+.vscode/

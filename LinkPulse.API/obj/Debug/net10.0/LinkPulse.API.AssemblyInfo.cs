@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9548de63a4593448a04c69d5657b228421a9e17d")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
