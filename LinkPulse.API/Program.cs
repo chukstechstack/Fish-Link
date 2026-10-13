@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<GetAllLinksService>();
 builder.Services.AddScoped<GetLinkByIdService>();
 builder.Services.AddScoped<CreateLinkService>();
+builder.Services.AddScoped<UpdateLinkService>();
+builder.Services.AddScoped<DeleteLinkService>();
 // 3. Register controllers so your API can handle web routes
 builder.Services.AddControllers();
 

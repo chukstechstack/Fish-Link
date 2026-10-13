@@ -1,12 +1,73 @@
-## .NET Core / Visual Studio
+# Build output
 [Bb]in/
 [Oo]bj/
+[Aa]rtifacts/
+[Ll]ogs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww]in32/
+[Aa]RM/
+
+# Visual Studio
 .vs/
+*.suo
 *.user
 *.userosscache
-*.suo
-.user
+*.sln.docstates
+*.vspscc
+*.vssscc
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.pdb
+*.ilk
+*.meta
+
+# .NET / NuGet
 project.lock.json
-project.lock.asspec
-*.ide
+project.fragment.lock.json
+artifacts/
+packages/
+*.nuget.props
+*.nuget.targets
+*.nupkg
+*.snupkg
+
+# Test and coverage output
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+coverage/
+coverage.*
+
+# Publish output
+publish/
+**/PublishOutputs/
+
+# IDE and editor files
 .vscode/
+.idea/
+*.sln.iml
+*.ide
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.local.json
+**/secrets*.json
+**/secrets/
+
+# Private keys and certificates
+*.pfx
+*.p12
+*.key
+*.pem
+*.jks
+*.keystore
+*.snk

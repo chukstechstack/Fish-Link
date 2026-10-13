@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("link-pulse-api-secret-id-2026")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4711947ec3faf5f336bc8b4711cff8694a0822d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5dae56405e5c8119a517decec1781710b7420df7")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
