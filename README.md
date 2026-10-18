@@ -1,48 +1,46 @@
 <div align="center">
 
-# 🎬 FISH LINK : THE DIGITAL HEIST
+# Fish Link — Modern Link Management Workspace
 
-### *Billions of web resources are saved every second. Most of them disappear into the abyss. Not on your watch.*
+### *Centralize, organize, and track your scattered web resources with sub-millisecond telemetry.*
 
-![Fish Link Banner](https://img.shields.io/badge/PRODUCTION-READY-amber?style=for-the-badge&logo=react&logoColor=black)
+![Production Ready](https://img.shields.io/badge/PRODUCTION-READY-amber?style=for-the-badge&logo=react&logoColor=black)
 ![License](https://img.shields.io/badge/LICENSE-MIT-020617?style=for-the-badge)
-![Status](https://img.shields.io/badge/SYSTEMS-OPERATIONAL-emerald?style=for-the-badge)
+![System Status](https://img.shields.io/badge/SYSTEMS-OPERATIONAL-emerald?style=for-the-badge)
 
 <br />
 
 <p align="center">
-  <a href="#-act-i-the-premise">The Premise</a> •
-  <a href="#-act-ii-the-cast--arsenal">The Arsenal</a> •
-  <a href="#-act-iii-system-architecture">Architecture</a> •
-  <a href="#-act-iv-deployment-sequence">Deployment</a>
+  <a href="#overview">Overview</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#getting-started">Getting Started</a>
 </p>
 
 ---
 
 </div>
 
-## 🌌 ACT I: THE PREMISE
+## Overview
 
-> *"We were drowning in open tabs, lost bookmarks, and broken Slack redirects. The web was expanding, but our memory was shrinking. We needed an anchor. We built an ocean engine."*
-
-**FISH LINK** is a Framer-grade, sub-millisecond link orchestration platform built for high-velocity engineers, designers, and creators. It replaces fragmented digital noise with clean, real-time link shortcodes, tag collections, and immediate click telemetry.
+**Fish Link** is a high-performance, Framer-grade SaaS platform designed to eliminate tab clutter and fragmented bookmarks. It provides a unified workspace to shorten links, group them into tag-based collections, and monitor real-time click analytics.
 
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        THE DIGITAL CHAOS LOOP                          │
+│                        THE PROBLEM: SCATTERED WEB                      │
 ├────────────────────────────────────────────────────────────────────────┤
-│  [Scatter Links] ──> [Tab Overload] ──> [Memory Loss] ──> [Lost Data] │
+│  [Open Tabs] ──> [Unorganized Bookmarks] ──> [Lost Slack/Chat Links]   │
 │                                                                        │
-│                        THE FISH LINK PROTOCOL                         │
+│                        THE FISH LINK SOLUTION                          │
 ├────────────────────────────────────────────────────────────────────────┤
-│  [Capture URL]  ──> [Sub-ms Route] ──> [TiDB Store]  ──> [Live Stats] │
+│  [Shorten URL] ──> [Smart Collections] ──> [TiDB Cloud] ──> [Telemetry]│
 └────────────────────────────────────────────────────────────────────────┘
 
 
 ---
 
-## ⚡ ACT II: THE CAST & ARSENAL
+## Tech Stack
 
-Every blockbuster needs an unstoppable crew. Meet the tech stack driving the performance.
+The application is powered by a modern, type-safe full-stack architecture:
 
 <br />
 
@@ -51,27 +49,27 @@ Every blockbuster needs an unstoppable crew. Meet the tech stack driving the per
     <td align="center" width="150">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" width="48" height="48" alt="dotnet" />
       <br /><strong>.NET 8 API</strong>
-      <br /><sub>The Core Engine</sub>
+      <br /><sub>Backend Engine</sub>
     </td>
     <td align="center" width="150">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="48" height="48" alt="react" />
       <br /><strong>React 18</strong>
-      <br /><sub>The Glass UI</sub>
+      <br /><sub>Frontend UI</sub>
     </td>
     <td align="center" width="150">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="48" height="48" alt="ts" />
       <br /><strong>TypeScript</strong>
-      <br /><sub>Type-Safe Armor</sub>
+      <br /><sub>Type Safety</sub>
     </td>
     <td align="center" width="150">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" width="48" height="48" alt="tailwind" />
       <br /><strong>Tailwind CSS</strong>
-      <br /><sub>Glossy Styling</sub>
+      <br /><sub>Styling & Glassmorphism</sub>
     </td>
     <td align="center" width="150">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg" width="48" height="48" alt="tidb" />
       <br /><strong>TiDB Cloud</strong>
-      <br /><sub>Distributed SQL</sub>
+      <br /><sub>Distributed Database</sub>
     </td>
   </tr>
 </table>
@@ -80,9 +78,9 @@ Every blockbuster needs an unstoppable crew. Meet the tech stack driving the per
 
 ---
 
-## 📽️ ACT III: SYSTEM ARCHITECTURE
+## Architecture
 
-A glimpse inside the machine running beneath the surface.
+High-level request flow from the frontend client through the API down to the database:
 
            +-----------------------------------+
            |        Fish Link React UI         |
@@ -100,28 +98,26 @@ A glimpse inside the machine running beneath the surface.
              |                               |
              v                               v
 +------------+------------+    +-------------+-------------+
-|    TiDB Distributed DB  |    |    InMemory Telemetry    |
-|  (Persisted Resources)  |    |  (Sub-ms Click Analytics) |
+|    TiDB Distributed DB  |    |    Click Telemetry Engine |
+|  (Persisted Resources)  |    |  (Real-time Analytics)    |
 +-------------------------+    +---------------------------+
 
 ---
 
-## 🚀 ACT IV: DEPLOYMENT SEQUENCE
+## Getting Started
 
-### 1. Clone the Classified Repository
+### 1. Clone the Repository
 ```bash
 git clone [https://github.com/chukstechstack/Fish-Link.git](https://github.com/chukstechstack/Fish-Link.git)
-cd fish-link
-2. Prepare the Frontend Capsule
+cd Fish-Link
+2. Run the Frontend Client
 Bash
 npm install
 npm run dev
-3. Ignition (.NET 8 Backend)
+3. Run the .NET 8 Backend API
 Bash
 cd backend
 dotnet restore
 dotnet run
-💬 DIRECTOR'S CUT
-"Built with extreme precision using high-contrast typography, deep obsidian glass layouts, and electric banana-amber lighting accents."
-
-Designed & Engineered by Fish Link Operations.
+Project Status
+Fish Link is built with clean component structures, high-contrast layouts, and amber-yellow design accents.
