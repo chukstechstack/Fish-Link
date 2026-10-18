@@ -10,7 +10,7 @@ export default function Header() {
         <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-stone-900 text-white shadow-sm shadow-stone-900/15">
           <Link2 className="h-4 w-4" strokeWidth={2.25} />
         </span>
-        <span className="text-[15px] font-semibold tracking-[-0.03em] text-stone-900">LinkPulse</span>
+        <span className="text-[15px] font-semibold tracking-[-0.03em] text-stone-900">FishLink</span>
       </div>
 
       <div className="flex items-center gap-4">
