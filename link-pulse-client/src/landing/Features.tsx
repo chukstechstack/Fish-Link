@@ -1,4 +1,5 @@
 
+// @ts-ignore lucide-react declarations are unavailable in this workspace.
 import { Cpu, Globe, Link, MousePointerClick, Search, Sparkles, Tag } from 'lucide-react';
 
 export default function Features() {
