@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Cpu, Globe, Link, MousePointerClick, Search, Sparkles, Tag } from 'lucide-react';
 
 export default function Features() {

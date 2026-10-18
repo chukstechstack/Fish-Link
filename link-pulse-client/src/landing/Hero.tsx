@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Fish, Link2, FolderKanban, LineChart, Download, ArrowRight, Sparkles } from 'lucide-react';
 

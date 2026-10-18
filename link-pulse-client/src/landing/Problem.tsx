@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Layers, HelpCircle, EyeOff, ShieldAlert } from 'lucide-react';
 
 export default function Problem() {

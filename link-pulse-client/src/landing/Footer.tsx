@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Fish, ArrowRight, Download, ShieldCheck } from 'lucide-react';
 

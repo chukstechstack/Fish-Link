@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Sparkles, Zap, FolderCheck, BarChart3, ShieldCheck } from 'lucide-react';
 
 export default function Solution() {
