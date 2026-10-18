@@ -5,7 +5,7 @@ namespace LinkPulse.API.Services;
 
 public class GetAllLinksService(IConfiguration configuration)
 {
-    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") 
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string not found.");
 
     public async Task<IEnumerable<Link>> ExecuteAsync()
@@ -15,7 +15,7 @@ public class GetAllLinksService(IConfiguration configuration)
         using var connection = new MySqlConnection(_connectionString);
         await connection.OpenAsync();
 
-        var query = "SELECT Id, Url, Title FROM Links";
+        var query = "SELECT Id, Url, Title, Category, CreatedAt FROM Links";
         using var command = new MySqlCommand(query, connection);
 
         using var reader = await command.ExecuteReaderAsync();
@@ -25,7 +25,9 @@ public class GetAllLinksService(IConfiguration configuration)
             {
                 Id = reader.GetInt32("Id"),
                 Url = reader.GetString("Url"),
-                Title = reader.IsDBNull(reader.GetOrdinal("Title")) ? null! : reader.GetString("Title")
+                Title = reader.IsDBNull(reader.GetOrdinal("Title")) ? null! : reader.GetString("Title"),
+                Category = reader.IsDBNull(reader.GetOrdinal("Category")) ? string.Empty : reader.GetString("Category"),
+                CreatedAt = reader.GetDateTime("CreatedAt")
             });
         }
 

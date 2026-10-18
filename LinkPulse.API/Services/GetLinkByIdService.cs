@@ -5,7 +5,7 @@ namespace LinkPulse.API.Services;
 
 public class GetLinkByIdService(IConfiguration configuration)
 {
-    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection") 
+    private readonly string _connectionString = configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string not found.");
 
     public async Task<Link?> ExecuteAsync(int id)
@@ -14,15 +14,15 @@ public class GetLinkByIdService(IConfiguration configuration)
         using var connection = new MySqlConnection(_connectionString);
         await connection.OpenAsync();
 
-        // 2. Setup the query with a safe parameter placeholder
-        var query = "SELECT Id, Url, Title FROM Links WHERE Id = @Id";
+        // 2. Setup the query including Category and CreatedAt
+        var query = "SELECT Id, Url, Title, Category, CreatedAt FROM Links WHERE Id = @Id";
         using var command = new MySqlCommand(query, connection);
-        
+
         command.Parameters.AddWithValue("@Id", id);
 
         // 3. Execute the reader stream
         using var reader = await command.ExecuteReaderAsync();
-        
+
         // 4. Explicitly wait for the reader, and store the true/false result in a boolean variable
         bool foundRow = await reader.ReadAsync();
 
@@ -33,7 +33,9 @@ public class GetLinkByIdService(IConfiguration configuration)
             {
                 Id = reader.GetInt32("Id"),
                 Url = reader.GetString("Url"),
-                Title = reader.IsDBNull(reader.GetOrdinal("Title")) ? null! : reader.GetString("Title")
+                Title = reader.IsDBNull(reader.GetOrdinal("Title")) ? null! : reader.GetString("Title"),
+                Category = reader.IsDBNull(reader.GetOrdinal("Category")) ? string.Empty : reader.GetString("Category"),
+                CreatedAt = reader.GetDateTime("CreatedAt")
             };
         }
 

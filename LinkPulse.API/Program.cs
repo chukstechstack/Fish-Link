@@ -1,22 +1,76 @@
+using System.Text;
+using DotNetEnv;
 using LinkPulse.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
-// 1. Create the server builder (The Setup Crew)
+// Load the .env file from the project root before building the configuration
+Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
-// 2. Register our raw MySQL service for dependency injection
-builder.Services.AddScoped<GetAllLinksService>();
-builder.Services.AddScoped<GetLinkByIdService>();
+// Ensure ASP.NET Core reads environment variables (including those from .env)
+builder.Configuration.AddEnvironmentVariables();
+
+// 1. Register CORS Policy for the React Frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// 2. Register our Custom Services
+builder.Services.AddScoped<RegisterUserService>();
+builder.Services.AddScoped<LoginUserService>();
+builder.Services.AddScoped<JwtTokenService>();
+
+
 builder.Services.AddScoped<CreateLinkService>();
+builder.Services.AddScoped<GetAllLinksService>();
+builder.Services.AddScoped<FolderService>();
 builder.Services.AddScoped<UpdateLinkService>();
 builder.Services.AddScoped<DeleteLinkService>();
-// 3. Register controllers so your API can handle web routes
+
+// 3. Configure JWT Authentication
+var jwtSecret = builder.Configuration["JwtSettings:Secret"]
+    ?? throw new InvalidOperationException("JWT Secret not found.");
+var key = Encoding.UTF8.GetBytes(jwtSecret);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
-// 4. Lock in the settings and build the app (The Server)
 var app = builder.Build();
 
-// 5. Map your controllers so incoming web requests can hit your code
+// 4. Enable CORS Middleware (Must be placed before Authentication and Authorization)
+app.UseCors("AllowReactFrontend");
+
+// 5. Enable Authentication & Authorization middleware (Order matters!)
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
-// 6. Turn the server ON and start listening for requests
 app.Run();

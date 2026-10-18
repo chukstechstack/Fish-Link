@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5dae56405e5c8119a517decec1781710b7420df7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8734fce00b94bb37a46731c9f9fad4ba7de5a727")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkPulse.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
