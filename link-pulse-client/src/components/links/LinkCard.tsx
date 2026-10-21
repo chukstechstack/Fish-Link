@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MoreHorizontal, Pencil, Trash2, X } from 'lucide-react';
+import { Check, Copy, MoreHorizontal, Pencil, Trash2, X } from 'lucide-react';
 import type { LinkItem, FolderItem } from '../../types';
 import { updateLink, deleteLink } from '../../services/linkService';
 import { getFolders } from '../../services/folderService';
@@ -16,8 +16,18 @@ export default function LinkCard({ link, onRefresh }: LinkCardProps) {
   const [editCategory, setEditCategory] = useState(link.category);
   const [customFolders, setCustomFolders] = useState<FolderItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
 
   const templateCategories = ['Job', 'Work / Projects', 'Personal Notes', 'Research'];
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(link.url);
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('error');
+    }
+  };
 
   useEffect(() => {
     async function loadFolders() {
@@ -124,11 +134,28 @@ export default function LinkCard({ link, onRefresh }: LinkCardProps) {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-1 block line-clamp-2 text-[15px] font-semibold leading-6 tracking-[-0.02em] text-stone-900 transition-colors hover:text-stone-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/60"
+            className="mb-1 block line-clamp-2 text-[15px] font-semibold leading-6 tracking-[-0.02em] text-blue-700 transition-colors hover:text-blue-800 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
           >
             {link.title}
           </a>
-          <span className="block truncate text-xs text-stone-500">{link.url}</span>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="min-w-0 flex-1 truncate text-xs text-red-600">{link.url}</span>
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              aria-label={copyStatus === 'copied' ? 'Link copied' : 'Copy link'}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-blue-100 bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 transition hover:border-blue-200 hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+            >
+              {copyStatus === 'copied' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+              {copyStatus === 'copied' ? 'Copied' : 'Copy'}
+            </button>
+          </div>
+          {copyStatus === 'error' && (
+            <p role="status" className="mt-1 text-xs text-red-600">
+              Could not copy the link. Please copy it manually.
+            </p>
+          )}
+          {copyStatus === 'copied' && <span className="sr-only" role="status">Link copied to clipboard.</span>}
         </div>
       </div>
 
