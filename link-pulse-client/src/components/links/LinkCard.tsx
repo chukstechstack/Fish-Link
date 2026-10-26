@@ -10,9 +10,10 @@ interface LinkCardProps {
 }
 
 export default function LinkCard({ link, onRefresh }: LinkCardProps) {
+  const title = link.title?.trim() || link.url;
   const [activeMenu, setActiveMenu] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(link.title);
+  const [editTitle, setEditTitle] = useState(link.title ?? '');
   const [editCategory, setEditCategory] = useState(link.category);
   const [customFolders, setCustomFolders] = useState<FolderItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -134,9 +135,9 @@ export default function LinkCard({ link, onRefresh }: LinkCardProps) {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-1 block line-clamp-2 text-[15px] font-semibold leading-6 tracking-[-0.02em] text-blue-700 transition-colors hover:text-blue-800 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+            className="mb-1 block line-clamp-2 text-base font-bold leading-6 tracking-[-0.02em] text-blue-700 transition-colors hover:text-blue-800 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
           >
-            {link.title}
+            {title}
           </a>
           <div className="flex min-w-0 items-center gap-2">
             <span className="min-w-0 flex-1 truncate text-xs text-red-600">{link.url}</span>

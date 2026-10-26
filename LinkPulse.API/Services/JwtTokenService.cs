@@ -28,7 +28,7 @@ public class JwtTokenService(IConfiguration configuration)
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(2), // Token is valid for 2 hours
+            Expires = DateTime.UtcNow.AddDays(1),
             Issuer = _configuration["JwtSettings:Issuer"],
             Audience = _configuration["JwtSettings:Audience"],
             SigningCredentials = new SigningCredentials(
