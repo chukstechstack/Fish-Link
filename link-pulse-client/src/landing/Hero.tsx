@@ -92,9 +92,9 @@ export default function Hero() {
                     </div>
 
                     {/* Big, Lightweight, Glossy Headline with Enhanced Mobile Readability */}
-                    <h1 className="text-4xl sm:text-6xl lg:text-8xl font-light tracking-tight text-white leading-[1.1] sm:leading-[1.02] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                    <h1 className="text-4xl sm:text-6xl lg:text-8xl font-semibold tracking-tight text-white leading-[1.1] sm:leading-[1.02] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                         Fish Links. <br />
-                        <span className="font-extralight text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-300 to-amber-300 drop-shadow-[0_0_35px_rgba(253,224,71,0.6)]">
+                        <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-300 to-amber-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
                             Save & Don't lose them.
                         </span>
                     </h1>

@@ -29,7 +29,9 @@ export type AuthResponse = {
   token: string;
 };
 
-export type CurrentUserResponse = {
+export type UpdateAccountResponse = {
+  email: string;
+  token: string;
   message: string;
 };
 
@@ -43,8 +45,12 @@ export async function loginUser(credentials: Credentials): Promise<AuthResponse>
   return response.data;
 }
 
-export async function getCurrentUser(): Promise<CurrentUserResponse> {
-  const response = await api.get<CurrentUserResponse>('/auth/me');
+export async function updateAccount(data: {
+  email: string;
+  currentPassword: string;
+  newPassword?: string;
+}): Promise<UpdateAccountResponse> {
+  const response = await api.put<UpdateAccountResponse>('/auth/account', data);
   return response.data;
 }
 

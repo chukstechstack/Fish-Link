@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   BriefcaseBusiness,
   FlaskConical,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 import { getFolders, createFolder, updateFolder, deleteFolder } from '../../services/folderService';
 import type { FolderItem } from '../../types';
+import AccountSettings from './AccountSettings';
 
 interface SidebarProps {
   activeCategory: string;
@@ -32,6 +34,7 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
   const [editingFolder, setEditingFolder] = useState<FolderItem | null>(null);
   const [editFolderName, setEditFolderName] = useState('');
   const [loadingEdit, setLoadingEdit] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Real-world template categories for immediate productivity
   const templateCategories = [
@@ -41,6 +44,21 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
     { name: 'Personal Notes', id: 'Personal Notes' },
     { name: 'Research', id: 'Research' },
   ];
+
+  const getCategoryColors = (categoryId: string) => {
+    switch (categoryId) {
+      case 'Job':
+        return { active: 'bg-amber-50 text-amber-950 ring-amber-200/80', icon: 'bg-amber-100 text-amber-700' };
+      case 'Work / Projects':
+        return { active: 'bg-yellow-50 text-yellow-950 ring-yellow-200/80', icon: 'bg-yellow-100 text-yellow-700' };
+      case 'Personal Notes':
+        return { active: 'bg-violet-50 text-violet-950 ring-violet-200/80', icon: 'bg-violet-100 text-violet-700' };
+      case 'Research':
+        return { active: 'bg-sky-50 text-sky-950 ring-sky-200/80', icon: 'bg-sky-100 text-sky-700' };
+      default:
+        return { active: 'bg-orange-50 text-orange-950 ring-orange-200/80', icon: 'bg-orange-100 text-orange-700' };
+    }
+  };
 
   const fetchCustomFolders = async () => {
     try {
@@ -118,8 +136,8 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
   };
 
   return (
-    <aside className="flex min-h-[calc(100vh-4rem)] w-64 flex-col justify-between border-r border-stone-200/80 bg-stone-50/80 p-4">
-      <div className="space-y-6">
+    <aside className="sticky top-16 flex h-[calc(100vh-4rem)] w-64 shrink-0 flex-col justify-between self-start border-r border-amber-100 bg-gradient-to-b from-amber-50/80 via-orange-50/50 to-white p-4">
+      <div className="min-h-0 flex-1 space-y-6 overflow-y-auto">
         <div>
           <span className="mb-3 block px-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-400">
             Templates & Views
@@ -127,30 +145,29 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
 
           {/* Template Categories */}
           <div className="space-y-1">
-            {templateCategories.map((cat) => (
+            {templateCategories.map((cat) => {
+              const colors = getCategoryColors(cat.id);
+              return (
               <button
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className={`group flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/60 ${
+                className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 ${
                   activeCategory === cat.id
-                    ? 'bg-white font-medium text-stone-900 shadow-sm ring-1 ring-stone-200/80'
-                    : 'font-normal text-stone-600 hover:bg-stone-200/60 hover:text-stone-900'
+                    ? `${colors.active} font-semibold shadow-sm ring-1`
+                    : 'font-medium text-stone-600 hover:bg-white hover:text-stone-900 hover:shadow-sm'
                 }`}
               >
-                {cat.id === 'All' ? (
-                  <LayoutGrid className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-600" />
-                ) : cat.id === 'Job' ? (
-                  <BriefcaseBusiness className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-600" />
-                ) : cat.id === 'Work / Projects' ? (
-                  <Folder className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-600" />
-                ) : cat.id === 'Personal Notes' ? (
-                  <NotebookPen className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-600" />
-                ) : (
-                  <FlaskConical className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-600" />
-                )}
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${colors.icon} transition-transform group-hover:scale-105`}>
+                  {cat.id === 'All' ? <LayoutGrid className="h-4 w-4" /> :
+                    cat.id === 'Job' ? <BriefcaseBusiness className="h-4 w-4" /> :
+                      cat.id === 'Work / Projects' ? <Folder className="h-4 w-4 fill-current" fillOpacity={0.16} /> :
+                        cat.id === 'Personal Notes' ? <NotebookPen className="h-4 w-4" /> :
+                          <FlaskConical className="h-4 w-4" />}
+                </span>
                 <span>{cat.name}</span>
               </button>
-            ))}
+              );
+            })}
           </div>
 
           <div className="my-5 h-px bg-stone-200/80" />
@@ -184,7 +201,7 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
           <div className="space-y-1">
             {customFolders.length === 0 && (
               <div className="rounded-xl border border-dashed border-stone-200/90 bg-white/50 px-3 py-4 text-center">
-                <FolderOpen className="mx-auto mb-2 h-4 w-4 text-stone-400" />
+                <FolderOpen className="mx-auto mb-2 h-5 w-5 text-amber-500" />
                 <p className="text-xs font-medium text-stone-500">No folders yet</p>
                 <p className="mt-1 text-[11px] leading-relaxed text-stone-400">
                   Create one to keep links organized.
@@ -204,7 +221,9 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
                   onClick={() => onSelectCategory(folder.name)}
                   className="flex min-w-0 flex-1 items-center gap-2.5 truncate text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/60"
                 >
-                  <Folder className="h-4 w-4 shrink-0 text-stone-400" />
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
+                    <Folder className="h-4 w-4 fill-current" fillOpacity={0.16} />
+                  </span>
                   <span className="truncate">{folder.name}</span>
                 </button>
 
@@ -306,11 +325,18 @@ export default function Sidebar({ activeCategory, onSelectCategory }: SidebarPro
 
       {/* Footer Controls */}
       <div className="space-y-2 border-t border-stone-200/80 pt-4">
-        <button className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-stone-500 transition hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/60">
+        <button
+          onClick={() => setIsSettingsOpen(true)}
+          className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-stone-500 transition hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400/60"
+        >
           <Settings2 className="h-4 w-4" />
           Settings
         </button>
       </div>
+      {isSettingsOpen && createPortal(
+        <AccountSettings onClose={() => setIsSettingsOpen(false)} />,
+        document.body,
+      )}
     </aside>
   );
 }
